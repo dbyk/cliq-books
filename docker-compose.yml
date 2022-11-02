@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  php:
+    image: cliq-books-api_php:latest
+#    Compiling Phalcon in Dockerfile took longer than expected so I did it manually and put in the image
+#    build:
+#      dockerfile: ./docker/php/Dockerfile
+#      context: ./
+    depends_on:
+      - mysql
+    volumes:
+      - .:/var/app
+    env_file:
+      - .env.dev
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"
+    command: 'php -S 0.0.0.0:8080 -ddisplay_errors=3 -t public public/index.php'
+  mysql:
+    build: ./docker/mysql/
+    ports:
+      - "33066:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql:rw,delegated
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_DATABASE=books
+      - MYSQL_ROOT_PASSWORD=root
+
+volumes:
+  mysqldata:

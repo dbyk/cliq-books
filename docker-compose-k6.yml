@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  k6:
+    image: grafana/k6:latest
+    working_dir: /tests
+    environment:
+      RESULTS_PATH: /disk
+    volumes:
+      - ./tests:/tests
