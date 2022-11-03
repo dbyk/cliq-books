@@ -4,6 +4,8 @@ services:
   k6:
     image: grafana/k6:latest
     working_dir: /tests
+    depends_on:
+      - php
     environment:
       RESULTS_PATH: /disk
     volumes:
