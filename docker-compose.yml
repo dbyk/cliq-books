@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   php:
-    image: cliq-books-api_php:latest
+    image: daniilbykov/php-phalcon:7.4-fpm-alpine
 #    Compiling Phalcon in Dockerfile took longer than expected so I did it manually and put in the image
 #    build:
 #      dockerfile: ./docker/php/Dockerfile
